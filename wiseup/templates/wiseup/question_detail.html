@@ -1,0 +1,58 @@
+{% extends "wiseup/base.html" %} {% block content %}
+<div class="d-flex flex-column p-2">
+  <div class="m-3 pb-3">
+    <h3>{{ object.content }}</h3>
+    <p class="text-muted">
+      -- by
+      <a class="question-user" href="{% url 'user-questions' object.user.username %}"
+        >{% if object.user == request.user %} me{% else %}{{ object.user }}{% endif %}</a
+      >
+      | {{ object.date }} {% if object.user == user %} |
+      <a class="btn-edit" href="{% url 'question-update' object.id %}"
+        ><b>Edit</b></a
+      >
+      |
+      <a class="btn-delete" href="{% url 'question-delete' object.id %}"
+        ><b>Delete</b></a
+      >
+      {% endif %}
+    </p>
+    <a
+      class="btn btn-info btn-sm align-self-start"
+      href="{% url 'answer-create' object.id %}"
+      >Answer this question</a
+    >
+  </div>
+
+  {% for answer in object.answers.all %}
+  <ul class="list-group">
+    <li class="list-group-item borderless">
+      <small class="text-muted"
+        ><a
+          class="question-user"
+          href="{% url 'user-answers' answer.user.username %}"
+          >{% if answer.user == request.user %} me{% else %}{{ answer.user }}{% endif %}</a
+        >
+      </small>
+      <span class="text-muted">| </span
+      ><small class="text-muted">{{ answer.date }} </small>
+
+      {% if answer.user == user %}
+      <span class="text-muted">| </span
+      ><small class="text-muted"
+        ><a class="btn-edit" href="{% url 'answer-update' answer.id %}"
+          ><b>Edit</b></a
+        ><span class="text-muted"> | </span>
+        <a class="btn-delete" href="{% url 'answer-delete' answer.id %}"
+          ><b>Delete</b></a
+        >
+      </small>
+      {% endif %}
+
+      <br />
+      <p>{{ answer.content | linebreaksbr }}</p>
+    </li>
+  </ul>
+  {% endfor %}
+</div>
+{% endblock content %}

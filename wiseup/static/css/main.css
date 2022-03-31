@@ -1,0 +1,90 @@
+/* wiseup */
+.lucida {
+  font-family: "Lucida Console", "Courier New", monospace;
+}
+.monaco {
+  font-family: "Monaco", monospace;
+}
+.cover-container {
+  max-width: 60em;
+}
+.restraint-flex {
+  max-width: 45em;
+  margin: 0 auto;
+  align-items: center;
+}
+
+/* Navbar */
+nav a.navbar-brand {
+  font-weight: 600;
+}
+nav a.navbar-brand:hover {
+  color: #5bc0de !important;
+}
+.dropdown-item.active,
+.dropdown-item:active {
+  background-color: #5bc0de !important;
+}
+.dropdown-item {
+  color: rgba(0, 0, 0, 0.55) !important;
+  text-align: center;
+}
+li.dynamic-tab-item {
+  padding: 0px !important;
+}
+
+/*question list*/
+li.borderless {
+  border: 0 none;
+}
+
+/*anchor, button*/
+a.question-title {
+  color: rgba(0, 0, 0, 0.85);
+}
+a.question-user {
+  color: rgba(0, 0, 0, 0.55);
+}
+a.more {
+  color: #5bc0de;
+}
+a:link {
+  text-decoration: none;
+}
+a:visited {
+  text-decoration: none;
+}
+a.question-title:hover {
+  text-decoration: none;
+  color: #5bc0de;
+}
+a.question-user:hover {
+  text-decoration: underline;
+  color: rgba(0, 0, 0, 0.75);
+}
+a.more:hover {
+  text-decoration: underline;
+  color: rgba(91, 192, 222, 0.95);
+}
+a.nav-link {
+  color: #5bc0de;
+}
+a.btn-edit {
+  color: rgba(91, 192, 222, 0.75);
+}
+a.btn-edit:hover {
+  text-decoration: underline;
+  color: rgba(91, 192, 222, 0.95);
+}
+a.btn-delete {
+  color: rgba(217, 83, 79, 0.75);
+}
+a.btn-delete:hover {
+  text-decoration: underline;
+  color: rgba(217, 83, 79, 0.95);
+}
+
+/*form format*/
+.form-group {
+  margin: 10px !important;
+}
