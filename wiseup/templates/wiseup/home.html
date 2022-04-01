@@ -1,11 +1,17 @@
-{% extends "wiseup/base.html" %} {% block content %}
+{% extends "wiseup/base.html" %}{% load static %}{% load query_highlight %}{% block content %}
 <div class="d-flex flex-column p-2 restraint-flex text-center">
+  <form method="GET" class="form-inline my-2 my-lg-0 pb-3">
+    <input name="search" class="form-control mr-sm-2" type="search" placeholder="Enter a keyword" aria-label="Search">
+    <button class="btn btn-outline-info my-2 my-sm-0" type="submit">Search</button>
+  </form>
   {% for question in questions %}
   <ul class="list-group">
     {% if question.user.profile.if_private == False %}
     <li class="list-group-item borderless mb-3">
       <a class="question-title" href="{% url 'question-detail' question.id %}"
-        >{{ question.content }}</a
+        >{% if search_term == None %}{{ question.content }}
+        {% else %}{{ question.content|highlight:search_term }}
+        {% endif %}</a
       ><br /><small class="text-muted"
         >by
         <a

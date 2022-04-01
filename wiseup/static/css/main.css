@@ -88,3 +88,7 @@ a.btn-delete:hover {
 .form-group {
   margin: 10px !important;
 }
+
+.highlight {
+  background-color: #D3D3D3;
+}

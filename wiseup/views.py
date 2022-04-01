@@ -5,7 +5,6 @@ from .forms import QuestionForm, AnswerForm
 from django.contrib.auth.models import User
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.views.generic import View, ListView, DetailView, CreateView, UpdateView, DeleteView
-from django.core.paginator import Paginator
 
 
 class QuestionListView(ListView):
@@ -13,6 +12,19 @@ class QuestionListView(ListView):
     template_name = 'wiseup/home.html'
     context_object_name = 'questions'
     paginate_by = 10
+
+    def get_queryset(self):
+        queryset = Question.objects.all()
+        if self.request.GET.get("search"):
+            input = self.request.GET.get("search")
+            queryset = Question.objects.filter(content__icontains=input)
+        return queryset
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['search_term'] = self.request.GET.get("search").lower
+        return context
+
 
 
 class UserQuestionListView(ListView):
