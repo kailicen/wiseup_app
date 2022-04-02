@@ -1,7 +1,7 @@
 {% extends "wiseup/base.html" %}{% load static %}{% load query_highlight %}{% block content %}
 <div class="d-flex flex-column p-2 restraint-flex text-center">
   <form method="GET" class="form-inline my-2 my-lg-0 pb-3">
-    <input name="search" class="form-control mr-sm-2" type="search" placeholder="Enter a keyword" aria-label="Search">
+    <input name="search" class="form-control mr-sm-2" required type="search" placeholder="Enter a keyword" aria-label="Search">
     <button class="btn btn-outline-info my-2 my-sm-0" type="submit">Search</button>
   </form>
   {% for question in questions %}

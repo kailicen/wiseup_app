@@ -5,6 +5,7 @@ from .forms import QuestionForm, AnswerForm
 from django.contrib.auth.models import User
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.views.generic import View, ListView, DetailView, CreateView, UpdateView, DeleteView
+from django.db.models import Q
 
 
 class QuestionListView(ListView):
@@ -22,7 +23,7 @@ class QuestionListView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['search_term'] = self.request.GET.get("search").lower
+        context['search_term'] = self.request.GET.get("search")
         return context
 
 
@@ -35,14 +36,20 @@ class UserQuestionListView(ListView):
 
     def get_queryset(self):
         user = get_object_or_404(User, username=self.kwargs.get('username'))
-        return Question.objects.filter(user=user).order_by('-date')
+        queryset = Question.objects.filter(user=user).order_by('-date')
+        if self.request.GET.get("search"):
+            input = self.request.GET.get("search")
+            queryset = Question.objects.filter(user=user, content__icontains=input).order_by('-date')
+        return queryset
 
     def get_context_data(self, **kwargs):
         user = get_object_or_404(User, username=self.kwargs.get('username'))
         context = super().get_context_data(**kwargs)
         context['user'] = user
-        context['answers'] = Answer.objects.filter(user=user).order_by('-date')
+        context['total_answer_count'] = Answer.objects.filter(user=user).count()
+        context['total_question_count'] = Question.objects.filter(user=user).count()
         context['owner'] = self.request.user
+        context['search_term'] = self.request.GET.get("search")
         return context
 
 
@@ -54,14 +61,21 @@ class UserAnswerListView(ListView):
 
     def get_queryset(self):
         user = get_object_or_404(User, username=self.kwargs.get('username'))
-        return Answer.objects.filter(user=user).order_by('-date')
+        queryset = Answer.objects.filter(user=user).order_by('-date')
+        if self.request.GET.get("search"):
+            input = self.request.GET.get("search")
+            queryset = Answer.objects.filter(Q(user=user) & Q(content__icontains=input) | Q(question__content__icontains=input)).order_by('-date')
+        return queryset
 
     def get_context_data(self, **kwargs):
         user = get_object_or_404(User, username=self.kwargs.get('username'))
         context = super().get_context_data(**kwargs)
         context['questions'] = Question.objects.filter(user=user).order_by('-date')
+        context['total_answer_count'] = Answer.objects.filter(user=user).count()
+        context['total_question_count'] = Question.objects.filter(user=user).count()
         context['user'] = user
         context['owner'] = self.request.user
+        context['search_term'] = self.request.GET.get("search")
         return context
 
 

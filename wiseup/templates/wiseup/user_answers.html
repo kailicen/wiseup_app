@@ -1,4 +1,4 @@
-{% extends "wiseup/base.html" %}{% load static %} {% block content %}
+{% extends "wiseup/base.html" %}{% load static %}{% load query_highlight %}{% block content %}
 <div class="d-flex flex-column p-2">
   <div class="m-3 pb-3">
 
@@ -6,28 +6,32 @@
 
     <ul class="nav nav-tabs">
       <li class="nav-item">
-        <a class="nav-link" href="{% url 'user-questions' user.username %}">{{ questions.count }} Questions</a>
+        <a class="nav-link" href="{% url 'user-questions' user.username %}">{{ total_question_count }} Questions</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="{% url 'user-answers' user.username %}">
-          {% if is_paginated %}{{ page_obj.paginator.count }}
-          {% else %}{{ answers.count }}
-          {% endif %} Answers</a>
+        <a class="nav-link" href="{% url 'user-answers' user.username %}">{{ total_answer_count }} Answers</a>
       </li>
     </ul>
 
-    <div class="p-5">
+    <div class="p-3">
+      <form method="GET" class="form-inline my-2 my-lg-0 pb-3">
+        <input name="search" class="form-control mr-sm-2" required type="search" placeholder="Enter a keyword" aria-label="Search">
+        <button class="btn btn-outline-info my-2 my-sm-0" type="submit">Search</button>
+      </form>
         {% for answer in answers %}
         <ul class="list-group">
           <li class="list-group-item borderless mb-3">
             <h4><a
                   class="question-title"
                   href="{% url 'question-detail' answer.question.id %}"
-                  >{{ answer.question }}</a
+                  >{% if search_term == None %}{{ answer.question.content|linebreaksbr }}
+                  {% else %}{{ answer.question.content|highlight:search_term|linebreaksbr }}
+                  {% endif %}</a
                 ></h4>
             <p>
-              {{ answer.content|linebreaksbr }}<span id="dots"
-                ></p>
+              {% if search_term == None %}{{ answer.content|linebreaksbr }}
+              {% else %}{{ answer.content|highlight:search_term|linebreaksbr }}
+              {% endif %}</p>
               <small class="text-muted">{{ answer.date }} </small>
               {% if answer.user == owner %} <span class="text-muted">| </span
                 >
