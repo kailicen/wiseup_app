@@ -28,7 +28,8 @@
               {% endif %}</a
             ><br />
             <small class="text-muted"
-              >{{ question.answers.count }} answers</small
+              ><a class="question-user" href="{% url 'question-detail' question.id %}"
+              >{{ question.answers.count }} answers</a></small
             >
             | <small class="text-muted">{{ question.date }}</small> {% if question.user == owner %}<span class="text-muted">| </span
               >
