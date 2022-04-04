@@ -30,14 +30,3 @@ class Answer(models.Model):
 
     def get_absolute_url(self):
         return reverse('question-detail', kwargs={'pk': self.question.id})
-
-
-class Resource(models.Model):
-    title = models.CharField(max_length=100)
-    date = models.DateTimeField(auto_now_add=True)
-    content = models.TextField()
-
-'''
-class UserProfile
-    is_public = models.BooleanField(null=False, default=False)
-'''

@@ -1,6 +1,6 @@
 from django.shortcuts import get_object_or_404, render
 from django.urls import reverse_lazy
-from .models import Question, Answer, Resource
+from .models import Question, Answer
 from .forms import QuestionForm, AnswerForm
 from django.contrib.auth.models import User
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
