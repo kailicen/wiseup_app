@@ -1,6 +1,5 @@
 from django.urls import path
 
-from wiseup.models import Question
 from . import views
 from .views import (
     QuestionListView, UserQuestionListView, UserAnswerListView, 
@@ -22,5 +21,5 @@ urlpatterns = [
     path('question/<int:pk>/delete/', QuestionDeleteView.as_view(), name='question-delete'),
     path('answer/<int:pk>/delete/', AnswerDeleteView.as_view(), name='answer-delete'),
 
-    path('resources/', views.resources, name='wiseup-resources'),
+    path('about/', views.about, name='wiseup-about'),
 ]

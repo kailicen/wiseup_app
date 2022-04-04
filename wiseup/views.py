@@ -177,11 +177,5 @@ class AnswerDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
         return reverse_lazy('question-detail', kwargs={'pk':self.get_object().question.id})
 
 
-def resources(request):
-    return render(request, 'wiseup/resources.html')
-
-def questions(request):
-    return render(request, 'me/questions.html')
-
-def answers(request):
-    return render(request, 'me/answers.html')
+def about(request):
+    return render(request, 'wiseup/about.html')
