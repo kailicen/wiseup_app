@@ -6,7 +6,6 @@
   </form>
   {% for question in questions %}
   <ul class="list-group">
-    {% if question.user.profile.if_private == False %}
     <li class="list-group-item borderless mb-3">
       <a class="question-title" href="{% url 'question-detail' question.id %}"
         >{% if search_term == None %}{{ question.content }}
@@ -23,7 +22,6 @@
       <small class="text-muted"><a class="question-user" href="{% url 'question-detail' question.id %}"
         >{{ question.answers.count }} answers</a></small>
     </li>
-    {% endif %}
   </ul>
   {% endfor %}
   
