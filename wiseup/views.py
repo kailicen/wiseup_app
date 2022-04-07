@@ -15,7 +15,14 @@ class QuestionListView(ListView):
     paginate_by = 10
 
     def get_queryset(self):
-        queryset = Question.objects.all()
+        if self.request.user.is_authenticated: 
+            user = self.request.user
+            if user.profile.if_private == True:
+                queryset = Question.objects.exclude(user=user)
+            else:
+                queryset = Question.objects.all()
+        else:
+            queryset = Question.objects.all()
         if self.request.GET.get("search"):
             input = self.request.GET.get("search")
             queryset = Question.objects.filter(content__icontains=input)
