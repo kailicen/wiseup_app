@@ -26,8 +26,8 @@
 
     <div>
       <form method="GET" class="form-inline py-2">
-        <input name="search" class="form-control" required type="search" placeholder="Enter a keyword" aria-label="Search">
-        <button class="btn btn-outline-info mx-2" type="submit">Search</button>
+        <input name="search" class="form-control m-2" required type="search" placeholder="Enter a keyword" aria-label="Search">
+        <button class="btn btn-outline-info m-2" type="submit">Search</button>
       </form>
         {% for question in questions %}
         <ul class="list-group">
@@ -49,7 +49,8 @@
               {% endif %}
             </a></small
             >
-            | <small class="text-muted">{{ question.date }}</small> {% if question.user == login_user %}<span class="text-muted">| </span
+            <span class="text-muted">| </span
+              ><small class="text-muted">{{ question.date }}</small> {% if question.user == login_user %}<span class="text-muted">| </span
               >
               <small class="text-muted"><a class="btn-edit" href="{% url 'question-update' question.id %}"
               ><b>Edit</b></a

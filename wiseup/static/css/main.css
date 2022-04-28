@@ -83,11 +83,6 @@ a.btn-delete:hover {
 
 /*form format*/
 
-.form-inline .form-control { 
-  display: inline-block !important; 
-  width: auto!important;
-}
-
 .highlight {
   background-color: #D3D3D3;
 }
