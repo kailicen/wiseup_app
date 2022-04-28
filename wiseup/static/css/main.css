@@ -1,7 +1,4 @@
 /* wiseup */
-.lucida {
-  font-family: "Lucida Console", "Courier New", monospace;
-}
 .monaco {
   font-family: "Monaco", monospace;
 }
@@ -19,11 +16,11 @@ nav a.navbar-brand {
   font-weight: 600;
 }
 nav a.navbar-brand:hover {
-  color: #5bc0de !important;
+  color: #17a2b7 !important;
 }
 .dropdown-item.active,
 .dropdown-item:active {
-  background-color: #5bc0de !important;
+  background-color: #17a2b7 !important;
 }
 .dropdown-item {
   color: rgba(0, 0, 0, 0.55) !important;
@@ -40,13 +37,13 @@ li.borderless {
 
 /*anchor, button*/
 a.question-title {
-  color: rgba(0, 0, 0, 0.85);
+  color: rgba(0, 0, 0);
 }
 a.question-user {
   color: rgba(0, 0, 0, 0.55);
 }
 a.more {
-  color: #5bc0de;
+  color: #17a2b7;
 }
 a:link {
   text-decoration: none;
@@ -56,7 +53,7 @@ a:visited {
 }
 a.question-title:hover {
   text-decoration: none;
-  color: #5bc0de;
+  color: #17a2b7;
 }
 a.question-user:hover {
   text-decoration: underline;
@@ -64,17 +61,17 @@ a.question-user:hover {
 }
 a.more:hover {
   text-decoration: underline;
-  color: rgba(91, 192, 222, 0.95);
+  color: rgba(23, 162, 183, 0.95);
 }
 a.nav-link {
-  color: #5bc0de;
+  color: #17a2b7;
 }
 a.btn-edit {
-  color: rgba(91, 192, 222, 0.75);
+  color: rgba(23, 162, 183, 0.75);
 }
 a.btn-edit:hover {
   text-decoration: underline;
-  color: rgba(91, 192, 222, 0.95);
+  color: rgba(23, 162, 183, 0.95);
 }
 a.btn-delete {
   color: rgba(217, 83, 79, 0.75);
@@ -85,10 +82,17 @@ a.btn-delete:hover {
 }
 
 /*form format*/
-.form-group {
-  margin: 10px !important;
+
+.form-inline .form-control { 
+  display: inline-block !important; 
+  width: auto!important;
 }
 
 .highlight {
   background-color: #D3D3D3;
+}
+
+/* user question, answer */
+.list-group-item {
+  padding: .75rem 0;
 }

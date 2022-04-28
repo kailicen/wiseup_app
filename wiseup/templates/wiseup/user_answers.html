@@ -1,40 +1,51 @@
 {% extends "wiseup/base.html" %}{% load static %}{% load query_highlight %}{% block content %}
 <div class="d-flex flex-column p-2">
-  <div class="m-3 pb-3">
+  <div>
 
-    <h3>{{ user.username }}</h3>
+    <h3>{{ display_user.username }}</h3>
 
     <ul class="nav nav-tabs">
       <li class="nav-item">
-        <a class="nav-link" href="{% url 'user-questions' user.username %}">{{ total_question_count }} Questions</a>
+        <a class="nav-link" href="{% url 'user-questions' display_user.username %}">{{ total_question_count }} 
+          {% if total_question_count <= 1 %}
+          Question
+        {% else %}
+        Questions
+        {% endif %}
+        </a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="{% url 'user-answers' user.username %}">{{ total_answer_count }} Answers</a>
+        <a class="nav-link" href="{% url 'user-answers' display_user.username %}">{{ total_answer_count }} 
+          {% if total_question_count <= 1 %}
+          Answer
+        {% else %}
+        Answers
+        {% endif %}
+        </a>
       </li>
     </ul>
 
-    <div class="p-3">
-      <form method="GET" class="form-inline my-2 my-lg-0 pb-3">
-        <input name="search" class="form-control mr-sm-2" required type="search" placeholder="Enter a keyword" aria-label="Search">
-        <button class="btn btn-outline-info my-2 my-sm-0" type="submit">Search</button>
+    <div>
+      <form method="GET" class="form-inline py-2">
+        <input name="search" class="form-control" required type="search" placeholder="Enter a keyword" aria-label="Search">
+        <button class="btn btn-outline-info mx-2" type="submit">Search</button>
       </form>
         {% for answer in answers %}
         <ul class="list-group">
-          <li class="list-group-item borderless mb-3">
-            <h4><a
+          <li class="list-group-item borderless">
+            <h5><a
                   class="question-title"
                   href="{% url 'question-detail' answer.question.id %}"
                   >{% if search_term == None %}{{ answer.question.content|linebreaksbr }}
                   {% else %}{{ answer.question.content|highlight:search_term|linebreaksbr }}
                   {% endif %}</a
-                ></h4>
-            <p>
+                ></h5>
+              <small class="text-muted">{{ answer.date }} </small>
+            <p class="mt-4">
               {% if search_term == None %}{{ answer.content|linebreaksbr }}
               {% else %}{{ answer.content|highlight:search_term|linebreaksbr }}
               {% endif %}</p>
-              <small class="text-muted">{{ answer.date }} </small>
-              {% if answer.user == owner %} <span class="text-muted">| </span
-                >
+              {% if answer.user == login_user %} 
                 <small class="text-muted"><a class="btn-edit" href="{% url 'answer-update' answer.id %}"
                 ><b>Edit</b></a
               ></small>
